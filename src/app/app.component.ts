@@ -1,4 +1,8 @@
 import { Component, NgModule, OnChanges, SimpleChanges  } from '@angular/core';
+import { Subject } from 'rxjs';
+
+import * as esprimaImported from 'esprima';
+ const esprima = esprimaImported;
 
 @Component({
   selector: 'app-root',
@@ -7,14 +11,15 @@ import { Component, NgModule, OnChanges, SimpleChanges  } from '@angular/core';
 })
 export class AppComponent {
   public title = 'Diplom-maga';
-  public content = 'var c = 1;';
-
+  public content = `class a {
+    constructor(a){}
+    function() {}
+  }`;
+  public t = new Subject<any>();
   constructor() {}
-  public esprima = require('esprima');
-
   public chngeEditor(): void {
-    const r = this.esprima.parseScript(this.content);
+    const r = esprima.parseScript(this.content);
     console.log(r);
+    this.t.next(r);
   }
-
 }
