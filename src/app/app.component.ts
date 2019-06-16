@@ -2,6 +2,8 @@ import { Component, NgModule, OnChanges, SimpleChanges  } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import * as esprimaImported from 'esprima';
+// import * as acorn from 'acorn';
+// import * as escope from 'escope';
  const esprima = esprimaImported;
 
 @Component({
