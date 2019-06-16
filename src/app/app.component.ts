@@ -11,13 +11,14 @@ import * as esprimaImported from 'esprima';
 })
 export class AppComponent {
   public title = 'Diplom-maga';
-  public content = `class a {
-    constructor(a){}
-    function() {}
+  public content = `class e{
+    e() {
+        c = ['a','b'].map(e=> e*1)
+      }
   }`;
   public t = new Subject<any>();
   constructor() {}
-  public chngeEditor(): void {
+  public changeEditor(): void {
     const r = esprima.parseScript(this.content);
     console.log(r);
     this.t.next(r);

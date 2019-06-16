@@ -1,7 +1,7 @@
 <ngx-codemirror 
   [(ngModel)] = "content"
   [options]="{
-    name: 'her',
+    name: 'editor',
     lineNumbers: true,
     lineWrapping : true,
     theme: 'neat',
@@ -9,6 +9,6 @@
   }"
   
   ></ngx-codemirror>
-  <button mat-button (click)="chngeEditor()">Transform</button>
+  <button mat-button (click)="changeEditor()">Transform</button>
   <router-outlet></router-outlet>
   
