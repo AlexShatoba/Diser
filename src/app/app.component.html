@@ -1,17 +1,25 @@
 <!-- <mat-toolbar>
   <span>Js education</span>
 </mat-toolbar> -->
-<ngx-codemirror 
-  [(ngModel)] = "content"
-  [options]="{
-    name: 'editor',
-    lineNumbers: true,
-    lineWrapping : true,
-    theme: 'material',
-    mode: 'application/typescript'
-  }"
-  
-  ></ngx-codemirror>
-  <button mat-button (click)="changeEditor()">Transform</button>
-  <router-outlet></router-outlet>
-  
+<div class="editor">
+  <ngx-codemirror [(ngModel)]="content" [options]="{
+      name: 'editor',
+      lineNumbers: true,
+      lineWrapping : true,
+      theme: 'material',
+      mode: 'application/typescript'
+    }"></ngx-codemirror>
+  <div class="result-packages">
+    <div class="package" *ngFor="let package of (packages$ | async)" [class.error]="package.type===2" [class.warning]="package.type===1">
+      <p class="type" *ngIf="package.type==1">Warning </p>
+      <p class="type" *ngIf="package.type==2">Error </p>
+      <p class="line">{{package.line}}</p>
+      <p >:</p>
+      <p class="column">{{package.column}} </p>
+      <p class="message">{{package.message}}</p>
+    </div>
+  </div>
+
+</div>
+<button mat-button (click)="changeEditor()">Transform</button>
+<router-outlet></router-outlet>

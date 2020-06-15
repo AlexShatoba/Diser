@@ -8,22 +8,32 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { EslintServices } from './service/eslint.services';
+import { HttpClientModule } from '@angular/common/http';
+import { LineCodeResultMapper } from './service/model/line-code-result';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     MatButtonModule,
     BrowserAnimationsModule,
+    HttpClientModule,
 
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     CodemirrorModule,
   ],
-  providers: [],
+  providers: [
+    EslintServices,
+    LineCodeResultMapper,
+  ],
+  exports: [
+    HttpClientModule,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

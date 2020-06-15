@@ -1,10 +1,10 @@
 import { Component, NgModule, OnChanges, SimpleChanges  } from '@angular/core';
-import { Subject } from 'rxjs';
+import { EslintServices } from './service/eslint.services';
+import { Observable, Subject } from 'rxjs';
+import { LineCodeResult } from './service/model/line-code-result';
+import { switchMap, startWith, tap, filter } from 'rxjs/operators';
 
-import * as esprimaImported from 'esprima';
-// import * as acorn from 'acorn';
-// import * as escope from 'escope';
- const esprima = esprimaImported;
+
 
 @Component({
   selector: 'app-root',
@@ -13,16 +13,28 @@ import * as esprimaImported from 'esprima';
 })
 export class AppComponent {
   public title = 'Diplom-maga';
-  public content = `class e{
-    e() {
-        c = ['a','b'].map(e=> e*1)
-      }
-  }`;
-  public t = new Subject<any>();
-  constructor() {}
+  public content = `function buildUI(parent)  {
+    parent.innerHTML = ""
+    parent.innerHTML = [1,2].filter(e => e)
+    parent.innerHTML += buildBody()
+    parent.innerHTML += buildFooter()
+    document.write(Date());
+  }
+  
+  const parent = document.getElementById('d');
+  parent.innerHTML = ''
+  parent.innerHTML = ''`;
+  private checked$ = new Subject<string>();
+  public packages$: Observable<LineCodeResult[]> = this.checked$.pipe(
+    tap((content) => {debugger}),
+    filter(content => content.length > 0),
+    switchMap(content => this.eslintService.checkCode(content)),
+    startWith([])
+  );
+  constructor(
+    private eslintService: EslintServices,
+  ) {}
   public changeEditor(): void {
-    const r = esprima.parseScript(this.content);
-    console.log(r);
-    this.t.next(r);
+    this.checked$.next(this.content);
   }
 }
