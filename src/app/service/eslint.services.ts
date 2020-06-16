@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { tap, map } from 'rxjs/operators';
-import { LinterDto } from './model/linter-dto';
+import { LinterDto } from './dto/linter-dto';
 import { LineCodeResultMapper, LineCodeResult } from './model/line-code-result';
 import { Observable } from 'rxjs';
 

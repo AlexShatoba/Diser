@@ -8,6 +8,7 @@
 ngx-codemirror{
     width: 50vw;
     height: 30vh;
+    overflow-y: auto;
 }
 .result-packages {
     width: 50vw;
@@ -16,8 +17,11 @@ ngx-codemirror{
     background: #0404040a;
     margin: 10px;
     border-radius: 7px;
-    box-shadow: 1px red;
     box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.75);
+}
+
+button {
+  background: white;
 }
 
 .package{
@@ -27,10 +31,10 @@ ngx-codemirror{
   align-items: center;
   padding-left: 10px;
     &.error {
-      color: red;
+      color: #be0505;
     }    
     &.warning {
-      color: orange;
+      color: #e39301;
     }    
     p {
       margin: 0 2px;
