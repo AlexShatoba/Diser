@@ -10,6 +10,8 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
-        "local-rules/no-inner-html": 1
+        "local-rules/no-inner-html": 1,
+        "local-rules/no-array-memory-allocation": 1,
+        "local-rules/no-dom-calls": 1
     }
 };

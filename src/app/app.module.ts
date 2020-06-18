@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
@@ -21,6 +22,7 @@ import { LineCodeResultMapper } from './service/model/line-code-result';
     MatButtonModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatProgressSpinnerModule,
 
     BrowserModule,
     AppRoutingModule,

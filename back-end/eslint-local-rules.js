@@ -1,4 +1,5 @@
-const { innerHTML } = require("./linter-rules/dom-rule");
+const { innerHTML, domCalls } = require("./linter-rules/dom-rule");
+const { ArrayMemoryAllocation } = require("./linter-rules/array-memory");
 
 'use strict';
 
@@ -28,4 +29,6 @@ module.exports = {
       }
     },
     "no-inner-html": innerHTML,
+    "no-array-memory-allocation": ArrayMemoryAllocation,
+    "no-dom-calls": domCalls,
   };
