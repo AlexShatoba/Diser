@@ -1,4 +1,4 @@
-import { Component, NgModule, OnChanges, SimpleChanges, OnInit, AfterViewInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ViewEncapsulation, NgModule, OnChanges, SimpleChanges, OnInit, AfterViewInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { EslintServices } from './service/eslint.services';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { LineCodeResult } from './service/model/line-code-result';
@@ -11,6 +11,7 @@ import { switchMap, startWith, tap, filter, delay } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
   public title = 'Diplom-maga';
@@ -18,6 +19,11 @@ export class AppComponent {
     parent.innerHTML = ""
     parent.innerHTML = [1,2].filter(e => e)
     document.write(Date());
+    for(var i=0; i<10; i++) {
+      parent += parent[i]
+             parent.number = i
+    
+    }
   }
   
   const parent = document.getElementById('d');
@@ -38,11 +44,11 @@ export class AppComponent {
     private eslintService: EslintServices,
   ) { 
     this.checked$.pipe(
-      tap((content) => { debugger }),
       filter(content => content.length > 0),
       delay(500),
       switchMap(content => this.eslintService.checkCode(content)),
       tap((res) => {
+        res.sort((a, b) => a.type - b.type);
         this.isLoding$.next(false);
         this.packages$.next(res);
       }),

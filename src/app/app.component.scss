@@ -6,13 +6,17 @@
     display: flex;
 }
 ngx-codemirror{
-    width: 50vw;
-    height: 30vh;
-    overflow-y: auto;
+  width: 50vw;
+  height: 80vh;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+div.CodeMirror.CodeMirror-wrap {
+  height: 80vh;
 }
 .result-packages {
     width: 50vw;
-    height: 30vh;
+    height: 80vh;
     overflow-y: auto;
     background: #0404040a;
     margin: 10px;
@@ -21,7 +25,11 @@ ngx-codemirror{
 }
 
 button {
-  background: white;
+  left: 50%;
+  right: 50%;
+  background: #0000ff1a;
+  color: black;
+  font-weight: bold;
 }
 
 .package{

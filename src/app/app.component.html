@@ -1,6 +1,3 @@
-<!-- <mat-toolbar>
-  <span>Js education</span>
-</mat-toolbar> -->
 <div class="editor">
   <ngx-codemirror [(ngModel)]="content" [options]="{
       name: 'editor',
@@ -25,5 +22,5 @@
   </div>
 
 </div>
-<button mat-stroked-button color="primary" (click)="changeEditor()">Transform</button>
+<button mat-stroked-button color="primary" (click)="changeEditor()">Run</button>
 <router-outlet></router-outlet>
