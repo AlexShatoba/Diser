@@ -1,4 +1,4 @@
-exports.innerHTML = {
+exports.InnerHTML = {
   create: context => {
     const innerHtmlMap = [];
     const callDOMProperty = [
@@ -15,10 +15,8 @@ exports.innerHTML = {
             const declareParent = ancestors.find(parent => {
               var a;
               if (parent.type === 'ForStatement') {
-
-                a = parent.init.declarations.find(variable => {
-                  return variable.id.name === node.object.name
-                })
+                const message = `Don't use ${node.property.name} for ${node.object.name} in a loop. It's bad for performance`
+                warning(context, message, node);
               } else {
                 const declaredVariables = context.getDeclaredVariables(parent);
                 a = findDeclaredVariables(context.getDeclaredVariables(parent), node.object.name)
@@ -41,7 +39,7 @@ exports.innerHTML = {
   }
 }
 
-exports.domCalls = {
+exports.DomCalls = {
   create: context => {
     const domCallArguments = [];
     const callDOMProperty = [
@@ -49,6 +47,7 @@ exports.domCalls = {
       'getElementsByClassName',
       'getElementsByTagName',   
       'querySelector',
+      'addEventListener'
     ];
     const availableArgumentTypes = [
       'Literal',
@@ -59,14 +58,19 @@ exports.domCalls = {
         const arguments = node.arguments? node.arguments: null;
         if (!!property && property.type === 'Identifier' && !!arguments) {
           if (callDOMProperty.indexOf(property.name) > -1) {
+            if(callDOMProperty.indexOf(property.name) === 4) {
+              const message = 'Better add event listener to parent element and delegate events, if you have dynamic components'
+              return warning(context, message, node);
+            }
             if( arguments.length > 1) {
               const message = 'Invalid argument!'
               return warning(context, message, node);
             }
-            if(availableArgumentTypes.indexOf(arguments[0].type)=== -1) {
+            if(availableArgumentTypes.indexOf(arguments[0].type) === -1) {
               const message = 'For improve performance use string'
               return warning(context, message, node);
             }
+
             if(domCallArguments.indexOf(arguments[0].value) > -1) {
               const message = `For improve performance don't repeat calls to dom elements`
               return warning(context, message, node);
@@ -87,7 +91,7 @@ function findDeclaredVariables(variables, name) {
 }
 
 function warning(context, message, node) {
-  return context.report({
+  context.report({
     node,
     message: message
   });

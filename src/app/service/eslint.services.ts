@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, catchError } from 'rxjs/operators';
 import { LinterDto } from './dto/linter-dto';
 import { LineCodeResultMapper, LineCodeResult } from './model/line-code-result';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 const MAIN_URL = 'http://localhost:8000';
 
@@ -17,6 +17,9 @@ export class EslintServices {
   public checkCode(code: string): Observable<LineCodeResult[]> {
     return this.httpClient.post<{res: LinterDto}>(`${MAIN_URL}/code`, { 'code': code }).pipe(
       map(({res}) => res.messages.map(errorLine => this.lineCodeResultMapper.from(errorLine))),
+      catchError(e => {
+        return of([]);
+      })
     );
   }
 }
