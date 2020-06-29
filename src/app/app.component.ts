@@ -14,42 +14,41 @@ import { switchMap, startWith, tap, filter, delay } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
-  public title = 'Diplom-maga';
-  public content = `function buildUI(parent)  {
-    parent.innerHTML = ""
-    parent.innerHTML = [1,2].filter(e => e)
-    document.write(Date());
-    for(var i=0; i<10; i++) {
-      parent += parent[i]
-             parent.number = i
-    
-    }
-  }
-  
-  const parent = document.getElementById('d');
-  parent.innerHTML = ''
-  parent.innerHTML = ''
-  const a = new Array(12);
-  document.getElementById('elem').propertyOne = 'value of first property';
-  document.getElementById('elem').propertyTwo = 'value of second property';
-  document.getElementById('elem').propertyThree = 'value of third property';`;
+  public content = `document.getElementById('divId').propertyOne = 'value of first property';
+document.getElementById('divId').propertyTwo = 'value of second property';
+document.getElementById('divId').propertyThree = 'value of third property';
 
-  private checked$ = new Subject<string>();
+var element = document.getElementById('divId')
+for(var i=0; i<len; i++) {
+  element.innerHTML += i;
+}
 
-  public isLoding$ = new BehaviorSubject(false);
+const a = new Array(len).map((e,i) => 2*i)
+
+var res = []
+res = Array.apply(undefined,arr.map(x=>x*2))
+
+res = []
+for (var i=0; i < arr.length; i++) {
+  res.unshift(i);
+}`;
+
+  private code$ = new Subject<string>();
+
+  public isLoading$ = new BehaviorSubject(false);
 
   public packages$ = new Subject<LineCodeResult[]>();
 
   constructor(
     private eslintService: EslintServices,
-  ) { 
-    this.checked$.pipe(
+  ) {
+    this.code$.pipe(
       filter(content => content.length > 0),
       delay(500),
       switchMap(content => this.eslintService.checkCode(content)),
       tap((res) => {
         res.sort((a, b) => a.type - b.type);
-        this.isLoding$.next(false);
+        this.isLoading$.next(false);
         this.packages$.next(res);
       }),
       startWith([])
@@ -58,8 +57,30 @@ export class AppComponent {
   }
 
   public changeEditor(): void {
-    this.isLoding$.next(true);
-    this.checked$.next(this.content);
-    this.packages$.next([])
+    this.isLoading$.next(true);
+    this.code$.next(this.content);
+    this.packages$.next([]);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

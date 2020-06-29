@@ -32,7 +32,7 @@ exports.UsingArrayMethods = {
 
         if (arrayProtoLoopMethods.indexOf(property) >=0 && node.arguments.length >0 && node.arguments.length <=2) {
           context.report({
-            message: `For improve performance, better use for-of loop`,
+            message: `For improve performance, better use reverse cycle for loop`,
             node: node,
           });
         }        

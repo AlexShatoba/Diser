@@ -20,7 +20,7 @@ function isSize(arguments) {
     false;
 }
 
-exports.ArrayMemoryAllocation = {
+exports.CreateArray = {
   create: context => {
     innerHtmlMap = [];
     callArrayProperty = [
@@ -33,10 +33,10 @@ exports.ArrayMemoryAllocation = {
           const property = node.callee.property.name
           var message = '';
           if (callArrayProperty.indexOf(property) >= 0) {
-            message = 'For copy array better use slice or concat or map'
+            message = 'For copy array better use slice or concat'
             if (callArrayProperty.indexOf(property) == 1) {
               if (node.callee.object.name === 'Array') {
-                message = 'For copy array better use slice or concat or map'
+                message = 'For copy array better use slice or concat'
               } else {return}
             }
             context.report({

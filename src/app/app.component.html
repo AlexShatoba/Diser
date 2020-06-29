@@ -7,7 +7,8 @@
       mode: 'application/typescript'
     }"></ngx-codemirror>
   <div class="result-packages">
-    <div class="package" *ngFor="let package of (packages$ | async)" [class.error]="package.type===2"
+    <div class="package" *ngFor="let package of (packages$ | async)"
+      [class.error]="package.type===2"
       [class.warning]="package.type===1">
       <p class="type" *ngIf="package.type==1">Warning </p>
       <p class="type" *ngIf="package.type==2">Error </p>
@@ -17,10 +18,12 @@
       <p class="message">{{package.message}}</p>
     </div>
   </div>
-  <div *ngIf="isLoding$ | async" class="spiner">
+  <div *ngIf="isLoading$ | async" class="spinner">
     <mat-spinner></mat-spinner>
   </div>
 
 </div>
-<button mat-stroked-button color="primary" (click)="changeEditor()">Run</button>
+<button mat-stroked-button color="primary" (click)="changeEditor()">
+  Run
+</button>
 <router-outlet></router-outlet>

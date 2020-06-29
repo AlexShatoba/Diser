@@ -15,5 +15,6 @@ module.exports = {
         "local-rules/no-dom-calls": 1,
         "local-rules/no-concat-in-loop": 1,
         "local-rules/no-array-proto-methods": 1,
+        "local-rules/no-create-array": 1,
     }
 };

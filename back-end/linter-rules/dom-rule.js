@@ -15,7 +15,7 @@ exports.InnerHTML = {
             const declareParent = ancestors.find(parent => {
               var a;
               if (parent.type === 'ForStatement') {
-                const message = `Don't use ${node.property.name} for ${node.object.name} in a loop. It's bad for performance`
+                const message = `Don't use ${node.property.name} for ${node.object.name} in a loop. It's bad for performance. Use concatination and after loop do ${node.property.name}.`
                 warning(context, message, node);
               } else {
                 const declaredVariables = context.getDeclaredVariables(parent);
@@ -27,7 +27,7 @@ exports.InnerHTML = {
             const declareParentId = !!declareParent && declareParent.hasOwnProperty('start') ? declareParent.start : 'global'
             const index = innerHtmlMap.indexOf(node.object.name + declareParentId);
             if (index >= 0) {
-              const message = `Don't use ${node.property.name} for ${node.object.name} variable very often. It's bad for performance`
+              const message = `Don't use ${node.property.name} for ${node.object.name || ''} variable very often. It's bad for performance. Use concatination and one ${node.property.name}.`
               return warning(context, message, node);
             } else {
               innerHtmlMap.push(`${node.object.name}${declareParentId}`);
@@ -51,6 +51,7 @@ exports.DomCalls = {
     ];
     const availableArgumentTypes = [
       'Literal',
+      'Identifier'
     ];
     return {
       CallExpression: node => {
@@ -72,7 +73,7 @@ exports.DomCalls = {
             }
 
             if(domCallArguments.indexOf(arguments[0].value) > -1) {
-              const message = `For improve performance don't repeat calls to dom elements`
+              const message = `For improve performance don't repeat calls to dom element. Better init const variable for that and use variable.`
               return warning(context, message, node);
             } else {
               domCallArguments.push(arguments[0].value);
